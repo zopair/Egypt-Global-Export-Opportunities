@@ -1,2 +1,92 @@
-# Egypt-Global-Export-Opportunities
-Egypt Global Export Opportunities — static MVP/POC for official and investor presentation. Independent tech initiative by Aly Hussein Zopair. منصة فرص التصدير المصرية العالمية (نموذج أولي) — مبادرة تقنية مستقلة.
+<div dir="rtl">
+
+# فرص التصدير المصرية العالمية
+## Egypt Global Export Opportunities
+
+**نموذج إثبات مفهوم وجدوى (Proof of Concept / MVP)** لمنصة تجميع وترجمة ذكية لفرص التصدير المصرية، مخصص للعرض الرسمي على الجهات الحكومية (وزارة التجارة والصناعة، الهيئة العامة للاستثمار، المجالس التصديرية) والمستثمرين.
+
+**المؤسس والمطوّر:** Aly Hussein Zopair (علي حسين زبير)
+
+**المعاينة الحية (GitHub Pages):** https://zopair.github.io/Egypt-Global-Export-Opportunities/
+
+---
+
+## الرؤية
+
+ربط الطلب الاستيرادي العالمي من القارات الخمس (أوروبا، الأمريكتين، الخليج وآسيا، أفريقيا، أستراليا) بقدرات التصدير المصرية، مع توجيه المنتج نحو **المنطقة الصناعية المصرية الأنسب للتنفيذ** (العاشر من رمضان، 6 أكتوبر، دمياط، برج العرب، الإسماعيلية والصعيد، شق الثعبان)، وربط إرشادي بالاتفاقيات التجارية وأدوات إثبات المنشأ ذات الصلة بالصادرات المصرية.
+
+## القيمة المضافة للاقتصاد المصري
+
+- تمكين المصانع الصغيرة والمتوسطة في المحافظات من الوصول إلى أسواق عالمية عبر أداة عربية واضحة.
+- تبسيط فهم الأطر التفضيلية المتاحة للصادرات المصرية وربطها بالسوق المستهدف.
+- توجيه الطلب نحو طاقات إنتاجية قائمة في المناطق الصناعية المصرية، بما يدعم تشغيل هذه المناطق ورفع تنافسية الصادرات.
+- إنتاج مستندات تصديرية مهنية (عروض أسعار ثنائية اللغة عربي/إنجليزي قابلة للطباعة والتصدير CSV) بتكلفة صفرية.
+
+## نموذج العمل (Business Model)
+
+- **B2G:** تقديم المنصة للجهات الحكومية والمجالس التصديرية كبنية تحتية معرفية لدعم المصدّرين.
+- **B2B Freemium:** خدمات أساسية مجانية للمصدّرين والمصانع، مع خدمات متقدمة مستقبلية باشتراك.
+
+## الوظائف الحالية (MVP)
+
+1. تغطية عرضية لفرص الأسواق عبر 5 قارات مع فلترة حسب **القارة، القطاع التصديري، المنطقة الصناعية المصرية**.
+2. ربط إرشادي بالاتفاقيات التجارية وأدوات المنشأ (انظر قسم الإطار القانوني أدناه).
+3. مولّد عروض أسعار دولية ثنائي اللغة (عربي/إنجليزي) مع الطباعة والتصدير CSV.
+4. تصدير بيانات الفرص المعروضة كملف CSV.
+5. تصميم مؤسسي رصين (Institutional Trade Terminal) باللغة العربية (RTL) مع علم جمهورية مصر العربية متحرك برفرفة هادئة، وانسيابية تمرير كاملة على الموبايل والكمبيوتر دون عناصر ثابتة تحجب الشاشة.
+
+## البنية التقنية (Zero-Cost Static Architecture)
+
+- `index.html` ذاتي التشغيل (Client-Side) يعمل مباشرة على GitHub Pages بدون خوادم أو واجهات برمجية مدفوعة.
+- البيانات منفصلة عن الكود في ملفات JSON:
+  - `data/demo-opportunities.json` — **نموذج محاكاة للعرض التجريبي (Demo Sample Data)** موسوم بوضوح داخل الواجهة وداخل ملفات التصدير.
+  - `data/verified-opportunities.json` — مسار مخصص للفرص الموثقة بمصادر رسمية مفتوحة؛ فارغ حالياً ولا تُدرج فيه أي فرصة إلا بعد التحقق وإسنادها إلى مرجعها الرسمي وتاريخه.
+
+## الإطار القانوني والتجاري (صياغة شرطية)
+
+الربط بالاتفاقيات في المنصة **إرشادي** ولا يؤكد أي تفضيل أو إعفاء. الأطر المعروضة:
+
+| الأداة / الاتفاقية | النطاق | الحالة |
+|---|---|---|
+| اتفاقية الشراكة المصرية–الأوروبية + شهادة الحركة **EUR.1** | الاتحاد الأوروبي | سارية منذ 2004 — EUR.1 مستند إثبات منشأ بموجبها (وليست اتفاقية قائمة بذاتها) |
+| بروتوكول المناطق الصناعية المؤهلة **QIZ** | الولايات المتحدة | سارٍ منذ 2004 — رهن القيد بالمناطق المؤهلة ونسبة المكون المحددة |
+| منطقة التجارة الحرة العربية الكبرى **GAFTA** | الدول العربية الأطراف | نفاذ كامل منذ 2005 |
+| اتفاقية مصر–**ميركوسور** | البرازيل والأرجنتين والباراغواي وأوروغواي | دخل حيز النفاذ في 2017 |
+| **COMESA** | شرق وجنوب أفريقيا | مصر عضو منذ 1998 |
+| **AfCFTA** | أفريقيا | مصر صادقت في 2019 — تطبيق تفضيلي تدريجي |
+| أسواق بلا إطار تفضيلي (مثل أستراليا وكندا) | — | تُطبق التعريفة العامة (MFN) والاشتراطات الفنية للدولة المستوردة |
+
+> الصيغة المعتمدة في المنصة: «اتفاقية تجارية سارية — قد تمنح تفضيلاً أو إعفاءً جمركياً رهن استيفاء قواعد المنشأ والمستندات المعتمدة». **لا جزم بالإعفاء التلقائي**، والتحقق النهائي عبر الجهات الرسمية المدرجة أدناه.
+
+## المصادر الرسمية المفتوحة
+
+- الاتحاد الأوروبي — Access2Markets (اتفاقية الشراكة مع مصر): https://trade.ec.europa.eu/access-to-markets/en/content/eu-egypt-association-agreement
+- المناطق الصناعية المؤهلة QIZ: https://www.trade.gov/qiz-egypt — http://qizegypt.gov.eg/Page/Protocol
+- الهيئة العامة للتنمية الصناعية — الاتفاقيات الدولية لمصر (GAFTA، ميركوسور، كوميسا، أغادير): https://www.ida.gov.eg/en/international-agreements
+- COMESA: https://www.comesa.int — AfCFTA: https://au-afcfta.org
+- وزارة التجارة والصناعة: https://www.mti.gov.eg — الهيئة العامة للاستثمار (GAFI): https://www.gafi.gov.eg — الهيئة العامة للرقابة على الصادرات والواردات (GOEIC): http://www.goeic.gov.eg
+- منظمة التجارة العالمية — قاعدة الاتفاقيات الإقليمية: http://rtais.wto.org — أستراليا (DFAT): https://www.dfat.gov.au
+
+## المكونات مفتوحة المصدر والتراخيص
+
+| المكوّن | المصدر | الترخيص |
+|---|---|---|
+| خط **IBM Plex Sans Arabic** (ملفات `fonts/`) | https://github.com/IBM/plex (مرآة: https://github.com/google/fonts) | SIL Open Font License 1.1 — نص الرخصة في `fonts/OFL-IBM-Plex-Sans-Arabic.txt` |
+| علم جمهورية مصر العربية `assets/egypt-flag.svg` | https://github.com/lipis/flag-icons | MIT — نص الرخصة في `assets/flag-icons-LICENSE.txt` |
+| كود المنصة | هذا المستودع | MIT — ملف `LICENSE` |
+
+لا تعتمد المنصة على أي خدمات مدفوعة أو واجهات برمجية مدفوعة أو مفاتيح أسرار.
+
+## إخلاء المسؤولية القانوني
+
+هذه المنصة **مبادرة تقنية مستقلة (Proof of Concept / MVP)** من تطوير Aly Hussein Zopair (علي حسين زبير)، ولا تمثل أي جهة حكومية أو رسمية ولا تحمل أي اعتماد رسمي. البيانات المعروضة نموذج محاكاة للعرض التجريبي (Demo Sample Data) وليست طلبات شراء حقيقية أو قائمة أو مؤكدة. المنصة أداة تجميع وترجمة ذكية تُحيل إلى المصادر الرسمية المفتوحة ولا تضمن أي تفضيل أو إعفاء جمركي؛ استفادة أي شحنة من اتفاقية تجارية رهن استيفاء قواعد المنشأ والمستندات المعتمدة لدى الجهات المختصة. لا تُقدَّم أي محتويات المنصة كاستشارة جمركية أو قانونية أو استثمارية.
+
+---
+
+### English summary
+
+Egypt Global Export Opportunities is an independent, zero-cost static MVP/POC (Arabic-first, RTL) that maps global import demand across five continents to Egyptian export sectors and the most suitable Egyptian industrial zones, with conditional guidance on Egypt's trade-agreement instruments (EU Association Agreement / EUR.1 movement certificate, QIZ, GAFTA, Egypt–MERCOSUR, COMESA, AfCFTA), a bilingual (AR/EN) quotation generator with print and CSV export, and a strict separation between clearly-labelled demo data (`data/demo-opportunities.json`) and a reserved verified-data path (`data/verified-opportunities.json`). It is not a government platform and carries no official endorsement; no preferential or exempt tariff treatment is ever asserted automatically.
+
+**Founder & Developer:** Aly Hussein Zopair — Live preview: https://zopair.github.io/Egypt-Global-Export-Opportunities/
+
+</div>
