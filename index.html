@@ -489,6 +489,7 @@ function csvDownload(filename, rows) {
   var csv = '﻿' + rows.map(function (r) {
     return r.map(function (cell) {
       cell = String(cell == null ? '' : cell);
+      if (/^[=+\-@]/.test(cell)) { cell = "'" + cell; } // CSV formula-injection guard
       return /[",\n]/.test(cell) ? '"' + cell.replace(/"/g, '""') + '"' : cell;
     }).join(',');
   }).join('\n');
