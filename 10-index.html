@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<!--
+  فرص التصدير المصرية العالمية | Egypt Global Export Opportunities
+  Independent tech initiative (Proof of Concept / MVP) — developed by Aly Hussein Zopair (علي حسين زبير)
+  Not a government body; no official endorsement implied.
+
+  Open-source components:
+  - IBM Plex Sans Arabic (SIL Open Font License 1.1) — https://github.com/IBM/plex (fonts/ + fonts/OFL-IBM-Plex-Sans-Arabic.txt)
+  - flag-icons (MIT License) — https://github.com/lipis/flag-icons (assets/egypt-flag.svg)
+  - Repository license: MIT (LICENSE)
+-->
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="فرص التصدير المصرية العالمية — نموذج أولي (MVP) لمنصة تجميع وترجمة ذكية لفرص التصدير المصرية، مبادرة تقنية مستقلة من تطوير علي حسين زبير.">
+<title>فرص التصدير المصرية العالمية | Egypt Global Export Opportunities</title>
+<style>
+  @font-face { font-family: 'IBM Plex Sans Arabic'; src: url('fonts/IBMPlexSansArabic-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Sans Arabic'; src: url('fonts/IBMPlexSansArabic-SemiBold.ttf') format('truetype'); font-weight: 600; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Sans Arabic'; src: url('fonts/IBMPlexSansArabic-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+
+  :root {
+    --bg: #f6f6f3;
+    --surface: #ffffff;
+    --ink: #16212c;
+    --muted: #55636f;
+    --line: #d8dde2;
+    --navy: #0e2a47;
+    --navy-2: #123655;
+    --red: #b3101f;
+    --gold: #8a6d00;
+    --ok: #1c5c33;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { overflow-x: hidden; }
+  body {
+    font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.75; font-size: 16px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { color: var(--navy); line-height: 1.5; }
+  h2 { font-size: 1.45rem; font-weight: 700; border-right: 4px solid var(--red); padding-right: 12px; margin-bottom: 6px; }
+  .section { padding: 34px 0 10px; }
+  .section-sub { color: var(--muted); font-size: 0.92rem; margin-bottom: 18px; }
+
+  /* ── Top bar ─────────────────────────── */
+  .topbar { background: var(--navy); color: #fff; border-bottom: 3px solid var(--red); }
+  .topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding-top: 9px; padding-bottom: 9px; }
+  .topbar .brand { font-weight: 700; font-size: 1.02rem; letter-spacing: 0; }
+  .topbar .brand small { display: block; font-weight: 400; font-size: 0.72rem; color: #c7d4e2; letter-spacing: 0.4px; }
+  .mvp-badge {
+    background: #fff; color: var(--navy); font-size: 0.72rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 2px; border: 1px solid var(--gold); white-space: nowrap;
+  }
+
+  /* ── Hero ────────────────────────────── */
+  .hero { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .hero .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; padding-top: 30px; padding-bottom: 30px; }
+  .flag-frame {
+    width: 250px; max-width: 60vw; border: 1px solid var(--line); background: #fff;
+    padding: 6px; box-shadow: 0 1px 3px rgba(16,32,48,.12);
+  }
+  #flagCanvas { display: block; width: 100%; height: auto; }
+  .flag-caption { font-size: 0.7rem; color: var(--muted); text-align: center; padding-top: 4px; }
+  .hero-text { flex: 1; min-width: 260px; }
+  .hero-text h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 4px; }
+  .hero-text .en { direction: ltr; text-align: right; color: var(--muted); font-size: 0.95rem; letter-spacing: 0.3px; margin-bottom: 12px; }
+  .hero-text p.lead { color: #33424f; max-width: 640px; }
+  .founder-line { margin-top: 12px; font-size: 0.88rem; color: var(--navy); font-weight: 600; }
+  .founder-line span { color: var(--muted); font-weight: 400; }
+
+  /* ── Nav (in-flow, non-fixed) ────────── */
+  nav.sitenav { background: var(--surface); border-bottom: 1px solid var(--line); }
+  nav.sitenav ul { list-style: none; display: flex; flex-wrap: wrap; }
+  nav.sitenav a {
+    display: block; padding: 11px 18px; color: var(--navy); text-decoration: none;
+    font-size: 0.92rem; font-weight: 600; border-left: 1px solid var(--line);
+  }
+  nav.sitenav a:hover, nav.sitenav a:focus-visible { background: #eef2f6; }
+
+  /* ── Stats strip ─────────────────────── */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line); background: var(--surface); margin-top: 26px; }
+  .stat { padding: 16px 14px; border-left: 1px solid var(--line); text-align: center; }
+  .stat:last-child { border-left: none; }
+  .stat .num { font-size: 1.6rem; font-weight: 700; color: var(--navy); }
+  .stat .lbl { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── Demo banner / badges ────────────── */
+  .demo-banner {
+    background: #fdf6e3; border: 1px solid var(--gold); border-right: 5px solid var(--gold);
+    color: #5c4a00; padding: 10px 14px; font-size: 0.86rem; font-weight: 600; margin: 14px 0;
+  }
+  .chip {
+    display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 2px 8px;
+    border-radius: 2px; border: 1px solid var(--line); background: #f0f3f6; color: var(--navy);
+  }
+  .chip.demo { border-color: var(--gold); background: #fdf6e3; color: #5c4a00; }
+  .chip.ok { border-color: var(--ok); background: #e9f4ec; color: var(--ok); }
+  .chip.mfn { border-color: #98a4ae; background: #eef1f3; color: #48555f; }
+
+  /* ── Filters ─────────────────────────── */
+  .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; background: var(--surface); border: 1px solid var(--line); padding: 16px; }
+  .filters label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .filters select, .filters input, .qform select, .qform input, .qform textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 2px;
+    font-family: inherit; font-size: 0.9rem; background: #fff; color: var(--ink);
+  }
+  .filters select:focus, .qform select:focus, .qform input:focus, .qform textarea:focus { outline: 2px solid var(--navy-2); outline-offset: 0; }
+  .btn {
+    display: inline-block; cursor: pointer; border: 1px solid var(--navy); background: var(--navy); color: #fff;
+    font-family: inherit; font-size: 0.88rem; font-weight: 600; padding: 9px 18px; border-radius: 2px;
+  }
+  .btn:hover { background: var(--navy-2); }
+  .btn.ghost { background: #fff; color: var(--navy); }
+  .btn.ghost:hover { background: #eef2f6; }
+  .filters .actions { display: flex; align-items: flex-end; gap: 8px; }
+
+  /* ── Tables ──────────────────────────── */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 760px; }
+  thead th { background: var(--navy); color: #fff; text-align: right; padding: 10px 12px; font-weight: 600; white-space: nowrap; }
+  tbody td { padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f3f5f7; }
+  tbody tr:hover { background: #e9eef4; }
+  .table-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin: 10px 0; font-size: 0.85rem; color: var(--muted); }
+
+  /* ── Agreements ──────────────────────── */
+  .agr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .agr-card { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--navy); padding: 16px; }
+  .agr-card h3 { font-size: 1.02rem; margin-bottom: 2px; }
+  .agr-card .scope { font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; }
+  .agr-card p { font-size: 0.86rem; }
+  .agr-card .cond { font-size: 0.8rem; color: #5c4a00; background: #fdf6e3; border: 1px solid #e4d290; padding: 7px 9px; margin-top: 10px; }
+  .agr-card.mfn { border-top-color: #98a4ae; }
+
+  /* ── Quote generator ─────────────────── */
+  .qform { background: var(--surface); border: 1px solid var(--line); padding: 18px; }
+  .qform fieldset { border: 1px solid var(--line); padding: 14px; margin-bottom: 14px; }
+  .qform legend { font-size: 0.85rem; font-weight: 700; color: var(--navy); padding: 0 8px; }
+  .qgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+  .qgrid label, .qitems label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted); margin-bottom: 3px; }
+  .qitems { display: grid; grid-template-columns: 2fr 1fr 0.8fr 0.9fr 0.9fr auto; gap: 8px; align-items: end; margin-bottom: 8px; }
+  @media (max-width: 760px) { .qitems { grid-template-columns: 1fr 1fr; } }
+  .qactions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+
+  #quoteOut { background: var(--surface); border: 1px solid var(--line); margin-top: 18px; padding: 26px; }
+  #quoteOut .q-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-bottom: 3px double var(--navy); padding-bottom: 12px; margin-bottom: 14px; }
+  #quoteOut .q-head h3 { font-size: 1.15rem; }
+  #quoteOut .q-head .en { direction: ltr; color: var(--muted); font-size: 0.8rem; }
+  #quoteOut dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 22px; font-size: 0.86rem; margin-bottom: 14px; }
+  #quoteOut dt { font-weight: 700; color: var(--navy); }
+  #quoteOut dd { margin-bottom: 4px; }
+  #quoteOut table { min-width: 0; font-size: 0.84rem; }
+  #quoteOut th, #quoteOut td { white-space: normal; }
+  #quoteOut { overflow-x: auto; }
+  #quoteOut .total-row td { font-weight: 700; background: #eef2f6; }
+  #quoteOut .q-note { font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; }
+
+  /* ── Sources / about / footer ────────── */
+  .src-list { background: var(--surface); border: 1px solid var(--line); padding: 8px 18px; }
+  .src-list li { padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 0.88rem; }
+  .src-list li:last-child { border-bottom: none; }
+  .src-list a { color: var(--navy); word-break: break-all; }
+  footer { background: var(--navy); color: #d5e0ec; margin-top: 40px; }
+  footer .wrap { padding-top: 26px; padding-bottom: 26px; }
+  footer h3 { color: #fff; font-size: 1rem; margin-bottom: 8px; }
+  footer p { font-size: 0.82rem; max-width: 900px; }
+  footer .legal { border-top: 1px solid #24496e; margin-top: 16px; padding-top: 14px; color: #aebfd2; }
+  footer a { color: #fff; }
+
+  .verified-note { background: #eef4ee; border: 1px solid #9dbfa7; border-right: 5px solid var(--ok); padding: 10px 14px; font-size: 0.86rem; margin: 14px 0; color: #234a31; }
+
+  @media print {
+    body * { visibility: hidden; }
+    #quoteOut, #quoteOut * { visibility: visible; }
+    #quoteOut { position: absolute; inset: 0; border: none; margin: 0; }
+    .no-print { display: none !important; }
+  }
+  @media (max-width: 640px) {
+    .hero .wrap { gap: 16px; }
+    .hero-text h1 { font-size: 1.3rem; }
+    .stat .num { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">فرص التصدير المصرية العالمية<small>EGYPT GLOBAL EXPORT OPPORTUNITIES</small></div>
+    <div class="mvp-badge">نموذج أولي للعرض — MVP / POC</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="flag-frame">
+      <canvas id="flagCanvas" width="480" height="360" role="img" aria-label="علم جمهورية مصر العربية"></canvas>
+      <div class="flag-caption">جمهورية مصر العربية</div>
+    </div>
+    <div class="hero-text">
+      <h1>منصة فرص التصدير المصرية العالمية</h1>
+      <div class="en">Egypt Global Export Opportunities — Institutional Trade Terminal (MVP)</div>
+      <p class="lead">نموذج إثبات مفهوم (Proof of Concept) لمنصة تجميع وترجمة ذكية تربط الطلب الاستيرادي العالمي بقدرات التصدير المصرية عبر القارات الخمس، مع ربط إرشادي بالاتفاقيات التجارية وأدوات إثبات المنشأ، وتوجيه نحو المناطق الصناعية المصرية الأنسب للتنفيذ، ومولّد عروض أسعار دولية ثنائي اللغة — مع الإحالة الدائمة إلى المصادر الرسمية المفتوحة.</p>
+      <div class="founder-line">المؤسس والمطوّر: Aly Hussein Zopair <span>(علي حسين زبير)</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="sitenav no-print" aria-label="التنقل الرئيسي">
+  <div class="wrap">
+    <ul>
+      <li><a href="#opportunities">فرص الأسواق</a></li>
+      <li><a href="#agreements">الاتفاقيات التجارية</a></li>
+      <li><a href="#quote">مولّد عرض السعر</a></li>
+      <li><a href="#sources">المصادر الرسمية</a></li>
+      <li><a href="#about">حول المبادرة</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <div class="stats" role="list">
+    <div class="stat" role="listitem"><div class="num">5</div><div class="lbl">قارات مغطاة</div></div>
+    <div class="stat" role="listitem"><div class="num" id="statOpps">—</div><div class="lbl">فرصة في نموذج العرض</div></div>
+    <div class="stat" role="listitem"><div class="num">6</div><div class="lbl">مناطق صناعية مصرية</div></div>
+    <div class="stat" role="listitem"><div class="num">7</div><div class="lbl">أطر اتفاقيات وأدوات منشأ</div></div>
+  </div>
+
+  <!-- ══════════ Opportunities ══════════ -->
+  <section class="section" id="opportunities">
+    <h2>فرص الأسواق العالمية حسب القارة والقطاع</h2>
+    <p class="section-sub">فلترة حسب القارة، القطاع التصديري، والمنطقة الصناعية المصرية الأنسب للتنفيذ.</p>
+
+    <div class="demo-banner" id="demoBanner">نموذج محاكاة للعرض التجريبي (Demo Sample Data) — هذه القوائم توضيحية لأغراض عرض النموذج الأولي ولا تمثل طلبات شراء حقيقية أو قائمة.</div>
+
+    <div class="filters no-print">
+      <div>
+        <label for="fContinent">القارة</label>
+        <select id="fContinent"><option value="">كل القارات</option></select>
+      </div>
+      <div>
+        <label for="fSector">القطاع التصديري</label>
+        <select id="fSector"><option value="">كل القطاعات</option></select>
+      </div>
+      <div>
+        <label for="fZone">المنطقة الصناعية المصرية</label>
+        <select id="fZone"><option value="">كل المناطق</option></select>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="btnReset" type="button">إعادة الضبط</button>
+        <button class="btn" id="btnCsv" type="button">تصدير CSV</button>
+      </div>
+    </div>
+
+    <div class="table-meta">
+      <span id="resultCount">—</span>
+      <span>الإطار التفضيلي المذكور إرشادي ورهن استيفاء قواعد المنشأ والمستندات المعتمدة.</span>
+    </div>
+
+    <div class="table-scroll">
+      <table aria-label="جدول فرص الأسواق">
+        <thead>
+          <tr>
+            <th>المرجع</th><th>الدولة</th><th>القارة</th><th>القطاع</th><th>المنتج</th><th>المنطقة الصناعية المقترحة</th><th>الإطار التفضيلي</th><th>ملاحظة</th>
+          </tr>
+        </thead>
+        <tbody id="oppBody"><tr><td colspan="8">جارٍ تحميل البيانات…</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="verified-note" id="verifiedNote">جارٍ فحص مسار البيانات الموثقة…</div>
+  </section>
+
+  <!-- ══════════ Agreements ══════════ -->
+  <section class="section" id="agreements">
+    <h2>الربط الإرشادي بالاتفاقيات التجارية وأدوات إثبات المنشأ</h2>
+    <p class="section-sub">عرض تعريفي للأطر التجارية ذات الصلة بالصادرات المصرية. الصياغة شرطية دائماً: التفضيل أو الإعفاء الجمركي رهن استيفاء قواعد المنشأ والمستندات المعتمدة، ويُتحقق منه عبر الجهات الرسمية.</p>
+    <div class="agr-grid" id="agrGrid"></div>
+  </section>
+
+  <!-- ══════════ Quote generator ══════════ -->
+  <section class="section" id="quote">
+    <h2>مولّد عروض الأسعار الدولية (عربي / English)</h2>
+    <p class="section-sub">إنشاء عرض سعر تصديري ثنائي اللغة مع إمكانية الطباعة والتصدير كملف CSV.</p>
+
+    <form class="qform no-print" id="quoteForm" onsubmit="return false;">
+      <fieldset>
+        <legend>بيانات العرض</legend>
+        <div class="qgrid">
+          <div><label for="qNum">رقم العرض</label><input id="qNum" value="EGX-2026-001"></div>
+          <div><label for="qDate">التاريخ</label><input id="qDate" type="date"></div>
+          <div><label for="qValid">صلاحية العرض (يوم)</label><input id="qValid" type="number" value="30" min="1"></div>
+          <div><label for="qCurrency">العملة</label>
+            <select id="qCurrency"><option>USD</option><option>EUR</option><option>EGP</option><option>SAR</option><option>AED</option><option>GBP</option></select></div>
+          <div><label for="qIncoterm">شرط التسليم (Incoterm)</label>
+            <select id="qIncoterm"><option>FOB</option><option>EXW</option><option>CFR</option><option>CIF</option><option>DAP</option></select></div>
+          <div><label for="qPort">ميناء / نقطة التسليم</label><input id="qPort" value="ميناء الإسكندرية" placeholder="Port of Alexandria"></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>الأطراف</legend>
+        <div class="qgrid">
+          <div><label for="qSeller">اسم المنشأة المصرية (البائع)</label><input id="qSeller" placeholder="اسم المنشأة"></div>
+          <div><label for="qSellerInfo">بيانات إضافية للبائع (سجل / عنوان)</label><input id="qSellerInfo" placeholder=""></div>
+          <div><label for="qBuyer">اسم المشتري</label><input id="qBuyer" placeholder="Buyer name"></div>
+          <div><label for="qBuyerCountry">دولة المشتري</label><input id="qBuyerCountry" placeholder="Country"></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>بنود المنتجات</legend>
+        <div id="itemsBox"></div>
+        <button class="btn ghost" id="btnAddItem" type="button">+ إضافة بند</button>
+      </fieldset>
+      <div class="qactions">
+        <button class="btn" id="btnGen" type="button">إنشاء / تحديث العرض</button>
+        <button class="btn ghost" id="btnPrint" type="button">طباعة</button>
+        <button class="btn ghost" id="btnQuoteCsv" type="button">تصدير العرض CSV</button>
+      </div>
+    </form>
+
+    <div id="quoteOut" hidden></div>
+  </section>
+
+  <!-- ══════════ Sources ══════════ -->
+  <section class="section" id="sources">
+    <h2>المصادر الرسمية المفتوحة</h2>
+    <p class="section-sub">المنصة أداة تجميع وترجمة ذكية تُحيل إلى المصادر الرسمية؛ التحقق النهائي من الاشتراطات والتعريفات يتم دائماً عبر هذه الجهات.</p>
+    <ul class="src-list">
+      <li>الاتحاد الأوروبي — اتفاقية الشراكة المصرية–الأوروبية (Access2Markets): <a href="https://trade.ec.europa.eu/access-to-markets/en/content/eu-egypt-association-agreement" target="_blank" rel="noopener">trade.ec.europa.eu/access-to-markets/en/content/eu-egypt-association-agreement</a></li>
+      <li>المناطق الصناعية المؤهلة (QIZ) — المكتب التجاري الأمريكي: <a href="https://www.trade.gov/qiz-egypt" target="_blank" rel="noopener">trade.gov/qiz-egypt</a> — والوحدة المصرية: <a href="http://qizegypt.gov.eg/Page/Protocol" target="_blank" rel="noopener">qizegypt.gov.eg</a></li>
+      <li>الاتفاقيات التجارية الدولية لمصر — الهيئة العامة للتنمية الصناعية (GAFTA، ميركوسور، كوميسا، أغادير وغيرها): <a href="https://www.ida.gov.eg/en/international-agreements" target="_blank" rel="noopener">ida.gov.eg/en/international-agreements</a></li>
+      <li>السوق المشتركة لشرق وجنوب أفريقيا (COMESA): <a href="https://www.comesa.int" target="_blank" rel="noopener">comesa.int</a></li>
+      <li>منطقة التجارة الحرة القارية الأفريقية (AfCFTA): <a href="https://au-afcfta.org" target="_blank" rel="noopener">au-afcfta.org</a></li>
+      <li>وزارة التجارة والصناعة المصرية: <a href="https://www.mti.gov.eg" target="_blank" rel="noopener">mti.gov.eg</a> — الهيئة العامة للاستثمار والمناطق الحرة: <a href="https://www.gafi.gov.eg" target="_blank" rel="noopener">gafi.gov.eg</a> — الهيئة العامة للرقابة على الصادرات والواردات: <a href="http://www.goeic.gov.eg" target="_blank" rel="noopener">goeic.gov.eg</a></li>
+      <li>منظمة التجارة العالمية — قاعدة بيانات الاتفاقيات التجارية الإقليمية: <a href="http://rtais.wto.org" target="_blank" rel="noopener">rtais.wto.org</a> — أستراليا (شروط MFN): <a href="https://www.dfat.gov.au" target="_blank" rel="noopener">dfat.gov.au</a></li>
+    </ul>
+  </section>
+
+  <!-- ══════════ About ══════════ -->
+  <section class="section" id="about">
+    <h2>حول المبادرة ونموذج العمل</h2>
+    <p class="section-sub">
+      مبادرة تقنية مستقلة تستهدف خدمة المصانع المصرية الصغيرة والمتوسطة في المحافظات بربط منتجاتها بالطلب العالمي، وتبسيط فهم الأطر التفضيلية المتاحة للصادرات المصرية، وإنتاج مستندات تصديرية مهنية ثنائية اللغة.
+      نموذج العمل المقترح: <strong>B2G</strong> للجهات الحكومية والمجالس التصديرية، و<strong>B2B Freemium</strong> للمصدّرين والمصانع.
+      البنية التقنية: ملفات ثابتة بالكامل (Static Client-Side) تعمل بتكلفة صفرية على GitHub Pages دون خوادم مدفوعة أو واجهات برمجية مدفوعة.
+    </p>
+    <p class="section-sub">
+      القيمة المضافة للاقتصاد المصري: دعم تنافسية الصادرات، توسيع قاعدة المصدّرين خارج المدن الكبرى، وربط الطاقات الإنتاجية في المناطق الصناعية (العاشر من رمضان، 6 أكتوبر، دمياط، برج العرب، الإسماعيلية والصعيد، شق الثعبان) بأسواق القارات الخمس.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h3>إخلاء مسؤولية قانوني</h3>
+    <p>هذه المنصة مبادرة تقنية مستقلة (Proof of Concept / MVP) من تطوير <strong>Aly Hussein Zopair (علي حسين زبير)</strong>، ولا تمثل أي جهة حكومية أو رسمية، ولا تحمل أي اعتماد رسمي. البيانات المعروضة نموذج محاكاة للعرض التجريبي (Demo Sample Data) وليست طلبات شراء حقيقية. المنصة أداة تجميع وترجمة ذكية تُحيل إلى المصادر الرسمية المفتوحة، ولا تضمن أي تفضيل أو إعفاء جمركي؛ استفادة أي شحنة من اتفاقية تجارية رهن استيفاء قواعد المنشأ والمستندات المعتمدة لدى الجهات المختصة. لا تُقدَّم أي محتويات هذه المنصة كاستشارة جمركية أو قانونية أو استثمارية.</p>
+    <div class="legal">
+      <p>المكونات مفتوحة المصدر: خط IBM Plex Sans Arabic ‏(SIL OFL 1.1) — علم مصر من حزمة flag-icons ‏(MIT) — كود المنصة مرخص بـ MIT. التفاصيل في ملف README.md بالمستودع.</p>
+      <p>© 2026 Aly Hussein Zopair — Egypt Global Export Opportunities (MVP). <a href="https://github.com/zopair/Egypt-Global-Export-Opportunities" target="_blank" rel="noopener">المستودع على GitHub</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+/* ═══ Waving Egyptian flag (canvas, calm sine displacement) ═══ */
+(function () {
+  var cv = document.getElementById('flagCanvas');
+  var ctx = cv.getContext('2d');
+  var W = cv.width, H = cv.height;
+  var img = new Image();
+  var off = document.createElement('canvas');
+  off.width = W; off.height = H;
+  var offCtx = off.getContext('2d');
+  var running = true, visible = true, t = 0;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SLICE = 4, AMP = 4.2, FREQ = 0.021, SPEED = 0.032;
+
+  function drawFrame() {
+    ctx.clearRect(0, 0, W, H);
+    var x, dy, shade;
+    for (x = 0; x < W; x += SLICE) {
+      dy = Math.sin(x * FREQ + t) * AMP * (0.35 + 0.65 * (x / W));
+      ctx.drawImage(off, x, 0, SLICE, H, x, dy, SLICE, H);
+      shade = Math.cos(x * FREQ + t) * 0.10;
+      if (shade > 0) { ctx.fillStyle = 'rgba(255,255,255,' + shade.toFixed(3) + ')'; }
+      else { ctx.fillStyle = 'rgba(0,0,0,' + (-shade).toFixed(3) + ')'; }
+      ctx.fillRect(x, dy, SLICE, H);
+    }
+  }
+  function loop() {
+    if (running && visible && !reduced) { t += SPEED; drawFrame(); requestAnimationFrame(loop); }
+    else { running = false; }
+  }
+  img.onload = function () {
+    offCtx.drawImage(img, 0, 0, W, H);
+    if (reduced) { t = 1.2; drawFrame(); return; }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        if (visible && !running) { running = true; requestAnimationFrame(loop); }
+      }, { threshold: 0.05 }).observe(cv);
+    }
+    requestAnimationFrame(loop);
+  };
+  img.onerror = function () {
+    /* fallback: static tricolour */
+    ctx.fillStyle = '#ce1126'; ctx.fillRect(0, 0, W, H / 3);
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, H / 3, W, H / 3);
+    ctx.fillStyle = '#000000'; ctx.fillRect(0, 2 * H / 3, W, H / 3);
+  };
+  img.src = 'assets/egypt-flag.svg';
+})();
+
+/* ═══ Agreements reference (conditional framing, correct instrument labels) ═══ */
+var AGREEMENTS = {
+  EU_AA:   { short: 'شراكة أوروبية / EUR.1', name: 'اتفاقية الشراكة المصرية–الأوروبية', scope: 'الدول الأعضاء في الاتحاد الأوروبي — سارية منذ 2004', cond: 'اتفاقية تجارية سارية — قد تمنح تفضيلاً أو إعفاءً جمركياً رهن استيفاء قواعد المنشأ والمستندات المعتمدة. شهادة الحركة EUR.1 هي مستند إثبات المنشأ بموجب الاتفاقية (وليست اتفاقية قائمة بذاتها).', cls: '' },
+  QIZ:     { short: 'QIZ', name: 'بروتوكول المناطق الصناعية المؤهلة (QIZ)', scope: 'الولايات المتحدة — سارٍ منذ 2004', cond: 'بروتوكول سارٍ — قد يمنح دخولاً تفضيلياً للمنتجات المؤهلة رهن القيد في المناطق الصناعية المؤهلة واستيفاء نسبة المكون المحددة والمستندات المعتمدة.', cls: '' },
+  GAFTA:   { short: 'GAFTA', name: 'منطقة التجارة الحرة العربية الكبرى (GAFTA)', scope: 'الدول العربية الأطراف — نفاذ كامل منذ 2005', cond: 'اتفاقية تجارية سارية — قد تمنح تفضيلاً أو إعفاءً جمركياً رهن استيفاء قواعد المنشأ العربية وشهادة المنشأ المعتمدة.', cls: '' },
+  MERCOSUR:{ short: 'ميركوسور', name: 'اتفاقية التجارة الحرة مصر–ميركوسور', scope: 'البرازيل والأرجنتين والباراغواي وأوروغواي — دخل حيز النفاذ في 2017', cond: 'اتفاقية تجارية سارية — قد تمنح تفضيلاً جمركياً تدريجياً رهن القوائم التعريفية وقواعد المنشأ والمستندات المعتمدة.', cls: '' },
+  COMESA:  { short: 'كوميسا', name: 'السوق المشتركة لشرق وجنوب أفريقيا (COMESA)', scope: 'الدول الأعضاء — مصر عضو منذ 1998', cond: 'اتفاقية تجارية سارية — قد تمنح تفضيلاً أو إعفاءً جمركياً رهن استيفاء قواعد منشأ كوميسا والمستندات المعتمدة.', cls: '' },
+  AFCFTA:  { short: 'AfCFTA', name: 'منطقة التجارة الحرة القارية الأفريقية (AfCFTA)', scope: 'الدول الأفريقية الأطراف — مصر صادقت في 2019 والتداول التفضيلي يبدأ تدريجياً', cond: 'اتفاقية سارية مع تطبيق تدريجي — قد تمنح تفضيلاً رهن سريان الجداول التعريفية على السوق المعني واستيفاء قواعد المنشأ القارية والمستندات المعتمدة.', cls: '' },
+  NONE:    { short: 'بدون تفضيل (MFN)', name: 'لا تنطبق اتفاقية تفضيلية', scope: 'تُطبق شروط التعريفة العامة (MFN) لدى السوق المستورد', cond: 'لا يوجد إطار تفضيلي معلن مع هذا السوق — تُطبق التعريفة العامة والاشتراطات الفنية للدولة المستوردة.', cls: 'mfn' }
+};
+var AGR_ORDER = ['EU_AA', 'QIZ', 'GAFTA', 'MERCOSUR', 'COMESA', 'AFCFTA', 'NONE'];
+
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+/* ═══ Opportunities: load, filter, render, CSV ═══ */
+var DEMO = null, FILTERED = [];
+
+function agrChip(code) {
+  var a = AGREEMENTS[code] || AGREEMENTS.NONE;
+  var cls = code === 'NONE' ? 'chip mfn' : 'chip ok';
+  return '<span class="' + cls + '">' + esc(a.short) + '</span>';
+}
+
+function renderAgreements() {
+  document.getElementById('agrGrid').innerHTML = AGR_ORDER.map(function (k) {
+    var a = AGREEMENTS[k];
+    return '<div class="agr-card ' + a.cls + '"><h3>' + esc(a.name) + '</h3>' +
+      '<div class="scope">' + esc(a.scope) + '</div>' +
+      '<div class="cond">' + esc(a.cond) + '</div></div>';
+  }).join('');
+}
+
+function fillFilters(list) {
+  function fill(id, values) {
+    var sel = document.getElementById(id);
+    values.forEach(function (v) {
+      var o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o);
+    });
+  }
+  fill('fContinent', uniq(list.map(function (o) { return o.continent_ar; })));
+  fill('fSector', uniq(list.map(function (o) { return o.sector_ar; })));
+  fill('fZone', uniq(list.map(function (o) { return o.zone; })));
+}
+function uniq(arr) { var s = {}, out = []; arr.forEach(function (v) { if (!s[v]) { s[v] = 1; out.push(v); } }); return out; }
+
+function applyFilters() {
+  var c = document.getElementById('fContinent').value;
+  var s = document.getElementById('fSector').value;
+  var z = document.getElementById('fZone').value;
+  FILTERED = DEMO.opportunities.filter(function (o) {
+    return (!c || o.continent_ar === c) && (!s || o.sector_ar === s) && (!z || o.zone === z);
+  });
+  renderTable();
+}
+
+function renderTable() {
+  var body = document.getElementById('oppBody');
+  if (!FILTERED.length) { body.innerHTML = '<tr><td colspan="8">لا نتائج مطابقة للفلاتر الحالية.</td></tr>'; }
+  else {
+    body.innerHTML = FILTERED.map(function (o) {
+      return '<tr><td>' + esc(o.id) + '</td><td><strong>' + esc(o.country_ar) + '</strong><br><span style="color:#55636f;font-size:.75rem">' + esc(o.country_en) + '</span></td>' +
+        '<td>' + esc(o.continent_ar) + '</td><td>' + esc(o.sector_ar) + '</td><td>' + esc(o.product_ar) + '</td><td>' + esc(o.zone) + '</td><td>' + agrChip(o.agreement) + '</td><td style="font-size:.78rem;color:#55636f">' + esc(o.note_ar) + '</td></tr>';
+    }).join('');
+  }
+  document.getElementById('resultCount').textContent = 'عدد الفرص المعروضة: ' + FILTERED.length + ' من ' + DEMO.opportunities.length;
+  document.getElementById('statOpps').textContent = DEMO.opportunities.length;
+}
+
+function csvDownload(filename, rows) {
+  var csv = '﻿' + rows.map(function (r) {
+    return r.map(function (cell) {
+      cell = String(cell == null ? '' : cell);
+      return /[",\n]/.test(cell) ? '"' + cell.replace(/"/g, '""') + '"' : cell;
+    }).join(',');
+  }).join('\n');
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = filename; a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+}
+
+function exportOppsCsv() {
+  var rows = [['نموذج محاكاة للعرض التجريبي (Demo Sample Data) — ليست طلبات شراء حقيقية — Egypt Global Export Opportunities MVP'],
+    ['المرجع', 'الدولة', 'Country', 'القارة', 'القطاع', 'المنتج', 'Product', 'المنطقة الصناعية', 'الإطار التفضيلي', 'ملاحظة']];
+  FILTERED.forEach(function (o) {
+    rows.push([o.id, o.country_ar, o.country_en, o.continent_ar, o.sector_ar, o.product_ar, o.product_en, o.zone, (AGREEMENTS[o.agreement] || {}).short || '', o.note_ar]);
+  });
+  csvDownload('egx-demo-opportunities.csv', rows);
+}
+
+/* ═══ Quotation generator ═══ */
+var ITEMS = [];
+
+function itemRow(i) {
+  return '<div class="qitems" data-i="' + i + '">' +
+    '<div><label>المنتج</label><input class="qi-name" placeholder="اسم المنتج / Product"></div>' +
+    '<div><label>كود HS (اختياري)</label><input class="qi-hs" placeholder="0805.10"></div>' +
+    '<div><label>الكمية</label><input class="qi-qty" type="number" min="0" step="any" value="1"></div>' +
+    '<div><label>الوحدة</label><input class="qi-unit" value="طن"></div>' +
+    '<div><label>سعر الوحدة</label><input class="qi-price" type="number" min="0" step="any" value="0"></div>' +
+    '<div><button class="btn ghost qi-del" type="button" title="حذف البند">حذف</button></div></div>';
+}
+function addItem() {
+  ITEMS.push({});
+  document.getElementById('itemsBox').insertAdjacentHTML('beforeend', itemRow(ITEMS.length - 1));
+}
+function readItems() {
+  var out = [];
+  document.querySelectorAll('#itemsBox .qitems').forEach(function (row) {
+    var name = row.querySelector('.qi-name').value.trim();
+    var qty = parseFloat(row.querySelector('.qi-qty').value) || 0;
+    var price = parseFloat(row.querySelector('.qi-price').value) || 0;
+    if (name || qty || price) {
+      out.push({ name: name, hs: row.querySelector('.qi-hs').value.trim(), qty: qty, unit: row.querySelector('.qi-unit').value.trim(), price: price, total: qty * price });
+    }
+  });
+  return out;
+}
+function fmt(n, cur) { return (Math.round(n * 100) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + cur; }
+
+function buildQuote() {
+  var g = function (id) { return document.getElementById(id).value.trim(); };
+  var items = readItems();
+  var cur = g('qCurrency') || 'USD';
+  var total = items.reduce(function (s, it) { return s + it.total; }, 0);
+  var rows = items.map(function (it, i) {
+    return '<tr><td>' + (i + 1) + '</td><td>' + esc(it.name) + '</td><td>' + esc(it.hs) + '</td><td>' + it.qty + '</td><td>' + esc(it.unit) + '</td><td>' + fmt(it.price, cur) + '</td><td>' + fmt(it.total, cur) + '</td></tr>';
+  }).join('');
+  var html =
+    '<div class="q-head"><div><h3>عرض سعر دولي</h3><div class="en">INTERNATIONAL PRICE QUOTATION</div></div>' +
+    '<div style="font-size:.85rem">رقم: <strong>' + esc(g('qNum')) + '</strong><br>التاريخ: ' + esc(g('qDate')) + '<br>صالح لمدة: ' + esc(g('qValid')) + ' يوم</div></div>' +
+    '<dl>' +
+    '<div><dt>البائع / Seller</dt><dd>' + esc(g('qSeller')) + (g('qSellerInfo') ? '<br><span style="color:#55636f;font-size:.78rem">' + esc(g('qSellerInfo')) + '</span>' : '') + '</dd></div>' +
+    '<div><dt>المشتري / Buyer</dt><dd>' + esc(g('qBuyer')) + (g('qBuyerCountry') ? ' — ' + esc(g('qBuyerCountry')) : '') + '</dd></div>' +
+    '<div><dt>شرط التسليم / Incoterm</dt><dd>' + esc(g('qIncoterm')) + ' — ' + esc(g('qPort')) + '</dd></div>' +
+    '<div><dt>العملة / Currency</dt><dd>' + esc(cur) + '</dd></div>' +
+    '</dl>' +
+    '<table><thead><tr><th>#</th><th>المنتج / Product</th><th>HS</th><th>الكمية / Qty</th><th>الوحدة / Unit</th><th>سعر الوحدة / Unit Price</th><th>الإجمالي / Total</th></tr></thead>' +
+    '<tbody>' + rows + '<tr class="total-row"><td colspan="6">الإجمالي الكلي / Grand Total</td><td>' + fmt(total, cur) + '</td></tr></tbody></table>' +
+    '<div class="q-note">ملاحظة جمركية / Customs note: قد تنطبق تفضيلات تعريفية بموجب الاتفاقيات التجارية السارية لمصر رهن استيفاء قواعد المنشأ والمستندات المعتمدة لدى الجهات المختصة، ولا يشكل هذا العرض تأكيداً لأي إعفاء. | Preferential tariff treatment under Egypt\'s trade agreements may apply subject to rules of origin and approved documentation; this quotation confirms no exemption.<br>عرض صادر عن منشأة مصرية عبر منصة فرص التصدير المصرية العالمية (MVP) — مبادرة تقنية مستقلة.</div>';
+  var out = document.getElementById('quoteOut');
+  out.innerHTML = html;
+  out.hidden = false;
+  out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function exportQuoteCsv() {
+  var g = function (id) { return document.getElementById(id).value.trim(); };
+  var cur = g('qCurrency') || 'USD';
+  var items = readItems();
+  var rows = [['عرض سعر دولي / International Price Quotation — Egypt Global Export Opportunities (MVP)'],
+    ['رقم العرض', g('qNum')], ['التاريخ', g('qDate')], ['صلاحية (يوم)', g('qValid')],
+    ['البائع / Seller', g('qSeller')], ['بيانات البائع', g('qSellerInfo')], ['المشتري / Buyer', g('qBuyer')], ['دولة المشتري', g('qBuyerCountry')],
+    ['Incoterm', g('qIncoterm')], ['ميناء/نقطة التسليم', g('qPort')], ['العملة', cur], [],
+    ['#', 'المنتج / Product', 'HS', 'الكمية / Qty', 'الوحدة / Unit', 'سعر الوحدة / Unit Price', 'الإجمالي / Total']];
+  var total = 0;
+  items.forEach(function (it, i) { total += it.total; rows.push([i + 1, it.name, it.hs, it.qty, it.unit, it.price.toFixed(2), it.total.toFixed(2)]); });
+  rows.push(['', '', '', '', '', 'الإجمالي الكلي / Grand Total', total.toFixed(2)]);
+  rows.push(['ملاحظة: قد تنطبق تفضيلات جمركية رهن قواعد المنشأ والمستندات المعتمدة — لا إعفاء مؤكد. / Preferential treatment subject to rules of origin; no exemption confirmed.']);
+  csvDownload('egx-quotation-' + (g('qNum') || 'draft') + '.csv', rows);
+}
+
+/* ═══ Boot ═══ */
+document.addEventListener('DOMContentLoaded', function () {
+  renderAgreements();
+  document.getElementById('qDate').value = new Date().toISOString().slice(0, 10);
+  addItem();
+  document.getElementById('btnAddItem').addEventListener('click', addItem);
+  document.getElementById('itemsBox').addEventListener('click', function (e) {
+    if (e.target.classList.contains('qi-del')) {
+      var rows = document.querySelectorAll('#itemsBox .qitems');
+      if (rows.length > 1) e.target.closest('.qitems').remove();
+    }
+  });
+  document.getElementById('btnGen').addEventListener('click', buildQuote);
+  document.getElementById('btnPrint').addEventListener('click', function () { if (!document.getElementById('quoteOut').hidden) window.print(); else { buildQuote(); setTimeout(function(){window.print();}, 300); } });
+  document.getElementById('btnQuoteCsv').addEventListener('click', exportQuoteCsv);
+  document.getElementById('btnCsv').addEventListener('click', exportOppsCsv);
+  document.getElementById('btnReset').addEventListener('click', function () {
+    ['fContinent', 'fSector', 'fZone'].forEach(function (id) { document.getElementById(id).value = ''; });
+    applyFilters();
+  });
+  ['fContinent', 'fSector', 'fZone'].forEach(function (id) { document.getElementById(id).addEventListener('change', applyFilters); });
+
+  fetch('data/demo-opportunities.json').then(function (r) { return r.json(); }).then(function (data) {
+    DEMO = data;
+    document.getElementById('demoBanner').textContent = data.meta.label_ar + ' — ' + data.meta.disclaimer_ar;
+    fillFilters(data.opportunities);
+    applyFilters();
+  }).catch(function () {
+    document.getElementById('oppBody').innerHTML = '<tr><td colspan="8">تعذر تحميل بيانات العرض.</td></tr>';
+  });
+
+  fetch('data/verified-opportunities.json').then(function (r) { return r.json(); }).then(function (data) {
+    var n = (data.opportunities || []).length;
+    document.getElementById('verifiedNote').textContent = n > 0
+      ? 'البيانات الموثقة: ' + n + ' فرصة موثقة بمصادر رسمية.'
+      : data.meta.status_ar;
+  }).catch(function () {
+    document.getElementById('verifiedNote').textContent = 'مسار البيانات الموثقة قيد التجهيز.';
+  });
+});
+</script>
+</body>
+</html>
